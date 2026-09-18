@@ -1,0 +1,8 @@
+CREATE TABLE IF NOT EXISTS profiles
+(
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    email VARCHAR(255),
+    name VARCHAR(255),
+    status VARCHAR(50),
+    role VARCHAR(50)
+);
