@@ -10,37 +10,32 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class ProfileDTO{
-    private long id;
+public class ProfileDTO {
 
+    private Long id;
     private String email;
-
     private String status;
-
     private String name;
-
-    private double initialBalance;
-
+    private Double initialBalance;
     private String role;
 
-    public static Profile dtoToEntity(ProfileDTO profileDTO){
+    public static Profile dtoToEntity(ProfileDTO dto) {
         Profile profile = new Profile();
-        profile.setId(profileDTO.getId());
-        profile.setEmail(profileDTO.getEmail());
-        profile.setName(profileDTO.getName());
-        profile.setRole(profileDTO.getRole());
-        profile.setStatus(profileDTO.getStatus());
+        profile.setId(dto.getId());
+        profile.setEmail(dto.getEmail());
+        profile.setName(dto.getName());
+        profile.setStatus(dto.getStatus());
+        profile.setRole(dto.getRole());
         return profile;
     }
 
-    public static ProfileDTO entityToDto(Profile profile){
+    public static ProfileDTO entityToDto(Profile profile) {
         ProfileDTO profileDTO = new ProfileDTO();
         profileDTO.setId(profile.getId());
         profileDTO.setEmail(profile.getEmail());
         profileDTO.setName(profile.getName());
         profileDTO.setRole(profile.getRole());
-        profileDTO.setStatus(profileDTO.getStatus());
+        profileDTO.setStatus(profile.getStatus());
         return profileDTO;
     }
-
 }

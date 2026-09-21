@@ -7,7 +7,7 @@
             http://www.liquibase.org/xml/ns/dbchangelog
             https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
 
-    <changeSet id="db.create-profiles" author="profile" runAlways="true">
+    <changeSet id="db.create-profiles" author="profile" >
         <createTable tableName="profiles">
             <column name="id" type="BIGINT" autoIncrement="true">
                 <constraints
