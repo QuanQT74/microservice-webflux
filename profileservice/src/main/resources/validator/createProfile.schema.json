@@ -1,13 +1,13 @@
 {
   "$schema": "https://json-schema.org/draft-07/schema#",
-  "title": "Validate craete profile request",
+  "title": "Validate create profile request",
   "description": "Create New Profile",
   "type": "object",
   "additionalProperties": false,
   "properties": {
     "email": {
       "type": "string",
-      "description": "Email addrees",
+      "description": "Email address",
       "format": "email"
     },
     "initialBalance": {
@@ -17,9 +17,8 @@
     },
     "name": {
       "type": "string",
-      "description": "full name of user",
-      "pattern": "([A-Za-z])"
-
+      "description": "Full name of user",
+      "minLength": 1
     },
     "role": {
       "type": "string",
@@ -27,9 +26,8 @@
         "CUSTOMER",
         "DEVELOPER"
       ],
-      "pattern": "([A-Za-z])",
-      "description": "role of user"
+      "description": "Role of user"
     }
   },
-  "required": ["email","in"]
+  "required": ["email", "name", "role"]
 }
