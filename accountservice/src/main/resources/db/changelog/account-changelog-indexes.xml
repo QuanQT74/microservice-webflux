@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="
+            http://www.liquibase.org/xml/ns/dbchangelog
+            https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="account-init-data" author="account">
+
+        <insert tableName="accounts">
+            <column name="id" value="acc-001"/>
+            <column name="email" value="quandn@example.com"/>
+            <column name="currency" value="USD"/>
+            <column name="balance" valueNumeric="1000"/>
+            <column name="reverver" valueNumeric="0"/>
+            <column name="version" valueNumeric="0"/>
+        </insert>
+
+    </changeSet>
+
+</databaseChangeLog>
