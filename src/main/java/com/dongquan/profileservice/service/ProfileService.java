@@ -1,22 +1,31 @@
 package com.dongquan.profileservice.service;
 
 import com.dongquan.commonservice.common.CommonException;
+import com.dongquan.commonservice.utils.Constant;
+import com.dongquan.profileservice.event.EventProducer;
 import com.dongquan.profileservice.model.ProfileDTO;
 import com.dongquan.profileservice.repository.ProfileRepository;
-import com.dongquan.profileservice.utils.Constant;
+import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+
+import java.util.Objects;
 
 @Service
 @Slf4j
 public class ProfileService {
     @Autowired
     ProfileRepository profileRepository;
+
+    @Autowired
+    EventProducer eventProducer;
+
+
+    Gson gson = new Gson();
 
     public Flux<ProfileDTO> getAllProfile() {
         return profileRepository.findAll()
@@ -46,7 +55,11 @@ public class ProfileService {
                 .flatMap(profileRepository::save)
                 .map(ProfileDTO::entityToDto)
                 .doOnError(throwable -> log.error(throwable.getMessage()))
-                .doOnSubscribe(profileDTO1 ->{
+                .doOnSuccess(profileDTO1 ->{
+                    if(Objects.equals(profileDTO1.getStatus(),Constant.STATUS_PROFILE_PENDING)){
+                        profileDTO1.setInitialBalance(profileDTO.getInitialBalance());
+                        eventProducer.send(Constant.PROFILE_ONBOAEDING_TOPIC,gson.toJson(profileDTO1)).subscribe();
+                    }
                 });
     }
 }
